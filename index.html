@@ -23,7 +23,7 @@
 
         .iframe-container iframe.widget {
             width: 400px; /* Largura desejada para o widget */
-            height: 550px; /* Altura desejada para o widget */
+            height: 500px; /* Altura desejada para o widget */
             z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
         }
 
@@ -46,6 +46,9 @@
         .iframe-container iframe.widget.second-widget {
             left: auto; /* Adiciona o segundo widget do lado direito */
             right: 0;
+			height: 140px;
+			width: 250px;
+			
         }
     </style>
 </head>
@@ -61,7 +64,7 @@
         <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
 
         <!-- iFrame do Segundo Widget (posição absoluta sobre o vídeo) -->
-        <iframe class="widget second-widget" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
+        <iframe class="widget second-widget"   src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
 
         <!-- Botão de Fullscreen -->
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
@@ -95,3 +98,4 @@
 
 </body>
 </html>
+
