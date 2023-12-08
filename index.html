@@ -3,57 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Widget LivePix</title>
-
+    <title>Sua Página com iFrames</title>
     <style>
-        /* Estilos para a div contendo o iframe */
-        .widget-container {
-            max-width: 800px; /* Tamanho máximo original */
-            width: 30%; /* Tamanho inicial (ajuste conforme necessário) */
-            margin: 0 auto; /* Centraliza a div na página, opcional */
-            overflow: hidden;
+        .iframe-container {
+            position: relative;
+            width: 1280px; /* Largura desejada para a div principal */
+            height: 720px; /* Altura desejada para a div principal */
         }
 
-        /* Estilos para o iframe dentro da div */
-        .widget-container iframe {
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            border: 0; /* Remove a borda do iframe */
         }
+
+        .iframe-container iframe.widget {
+            width: 320px; /* Largura desejada para o widget */
+            height: 200px; /* Altura desejada para o widget */
+            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
+        }
+
+        .fullscreen-button {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+        padding: 10px;
+        background-color: green; /* Cor de fundo do botão */
+        color: #ffffff; /* Cor do texto do botão */
+        border: none;
+        border-radius: 5px; /* Bordas arredondadas */
+        font-size: 16px;
+    }
+
+    .fullscreen-button:hover {
+        background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
+    }
+
+        
     </style>
 </head>
 <body>
 
-    <!-- Div de contêiner que pode ser redimensionada manualmente -->
-    <div class="widget-container" id="widgetContainer">
-        <!-- Substitua a URL do iframe com o link fornecido pelo widget -->
-        <iframe src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" 
-                frameborder="0" scrolling="no" allowfullscreen>
-        </iframe>
+    <h1>Sua Página com iFrames</h1>
+
+    <div class="iframe-container" id="fullscreen-container">
+        <!-- iFrame do Vídeo -->
+        <iframe name="Player" src="https://www.youtube.com/embed/Zu2z5M4gmno" frameborder="0" scrolling="no" allow="encrypted-media"></iframe>
+
+        <!-- iFrame do Primeiro Widget (posição absoluta sobre o vídeo) -->
+        <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
+
+       
+
+        <!-- Botão de Fullscreen -->
+        <button class="fullscreen-button" onclick="toggleFullscreen()">Tela Cheia</button>
     </div>
 
-    <!-- Script JavaScript para permitir redimensionamento manual -->
     <script>
-        var container = document.getElementById("widgetContainer");
-        var aspectRatio = 800 / 600; // Proporção original do widget (ajuste conforme necessário)
+        const fullscreenContainer = document.getElementById('fullscreen-container');
 
-        // Adiciona um ouvinte de evento para ajustar a largura da div quando a janela for redimensionada
-        window.addEventListener("resize", function () {
-            ajustarProporcoes();
-        });
-
-        // Função para ajustar as proporções da div de contêiner
-        function ajustarProporcoes() {
-            var novaLargura = container.offsetHeight * aspectRatio;
-
-            // Garante que a nova largura não ultrapasse o tamanho máximo original
-            if (novaLargura <= 800) {
-                container.style.width = novaLargura + "px";
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else if (document.mozFullScreenElement) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            } else if (document.msFullscreenElement) {
+                document.msExitFullscreen();
+            } else {
+                if (fullscreenContainer.requestFullscreen) {
+                    fullscreenContainer.requestFullscreen();
+                } else if (fullscreenContainer.mozRequestFullScreen) {
+                    fullscreenContainer.mozRequestFullScreen();
+                } else if (fullscreenContainer.webkitRequestFullscreen) {
+                    fullscreenContainer.webkitRequestFullscreen();
+                } else if (fullscreenContainer.msRequestFullscreen) {
+                    fullscreenContainer.msRequestFullscreen();
+                }
             }
         }
-
-        // Chama a função de ajustarProporcoes() quando a página carrega
-        ajustarProporcoes();
     </script>
 
 </body>
