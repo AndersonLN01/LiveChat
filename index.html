@@ -89,15 +89,15 @@
             const containerHeight = fullscreenContainer.clientHeight;
 
             // Define o tamanho do widget1 mantendo a proporção
-            const widget1Width = containerWidth * 0.5;
-            const widget1AspectRatio = 320 / 200;
+            const widget1Width = containerWidth * 0.4;
+            const widget1AspectRatio = 800 / 400;
             const widget1Height = widget1Width / widget1AspectRatio;
             widget1.style.width = `${widget1Width}px`;
             widget1.style.height = `${widget1Height}px`;
 
             // Define o tamanho do widget2 mantendo a proporção original sem cortes
             const widget2AspectRatio = 800 / 600;
-            const widget2Width = Math.min(containerWidth * 0.1, containerHeight * 0.1 * widget2AspectRatio);
+            const widget2Width = Math.min(containerWidth * 0.2, containerHeight * 0.3 * widget2AspectRatio);
             const widget2Height = widget2Width / widget2AspectRatio;
             widget2.style.width = `${widget2Width}px`;
             widget2.style.height = `${widget2Height}px`;
