@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LiveChat</title>
     <style>
-        body {
-            margin: 0;
-        }
-
         .iframe-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Proporção 16:9 para criar espaço para o vídeo */
+            position: absolute;
+			top: 0;
+            left: 0;
+            width: 1280px; /* Largura desejada para a div principal */
+            height: 720px; /* Altura desejada para a div principal */
         }
 
         .iframe-container iframe {
@@ -24,36 +22,36 @@
         }
 
         .iframe-container iframe.widget {
-            width: 30%; /* Porcentagem da largura da tela para o widget */
-            height: 25vh; /* Altura desejada para o widget */
+            width: 400px; /* Largura desejada para o widget */
+            height: 300px; /* Altura desejada para o widget */
             z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
         }
 
-        .fullscreen-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            cursor: pointer;
-            padding: 10px;
-            background-color: green; /* Cor de fundo do botão */
-            color: #ffffff; /* Cor do texto do botão */
-            border: none;
-            border-radius: 5px; /* Bordas arredondadas */
-            font-size: 16px;
-        }
+          .fullscreen-button {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+        padding: 10px;
+        background-color: green; /* Cor de fundo do botão */
+        color: #ffffff; /* Cor do texto do botão */
+        border: none;
+        border-radius: 5px; /* Bordas arredondadas */
+        font-size: 16px;
+    }
 
-        .fullscreen-button:hover {
-            background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
-        }
-
-        @media screen and (max-width: 600px) {
-            .iframe-container iframe.widget {
-                width: 80%; /* Altera a largura do widget para telas menores */
-            }
+    .fullscreen-button:hover {
+        background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
+    }
+        .iframe-container iframe.widget.second-widget {
+            left: auto; /* Adiciona o segundo widget do lado direito */
+            right: 0;
         }
     </style>
 </head>
 <body>
+
+    
 
     <div class="iframe-container" id="fullscreen-container">
         <!-- iFrame do Vídeo -->
