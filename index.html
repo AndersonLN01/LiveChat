@@ -4,12 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embed Links</title>
+    <style>
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 
-<iframe src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" width="600" height="400" frameborder="0" allowfullscreen></iframe>
+<div class="iframe-container">
+    <iframe id="iframe1" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0" allowfullscreen></iframe>
+</div>
 
-<iframe src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" width="600" height="400" frameborder="0" allowfullscreen></iframe>
+<div class="iframe-container">
+    <iframe id="iframe2" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+    function resizeIframe(iframeId, newWidth) {
+        var iframe = document.getElementById(iframeId);
+        iframe.style.width = newWidth + 'px';
+        iframe.style.height = (newWidth / 16) * 9 + 'px'; // Assuming 16:9 aspect ratio
+    }
+
+    // Exemplos de como chamar a função para redimensionar cada iframe
+    resizeIframe('iframe1', 500); // Redimensiona o iframe1 para 300 pixels de largura
+    resizeIframe('iframe2', 250); // Redimensiona o iframe2 para 400 pixels de largura
+</script>
 
 </body>
 </html>
