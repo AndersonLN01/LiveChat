@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveChat</title>
+    <style>
+        .iframe-container {
+            position: absolute;
+			top: 0;
+            left: 0;
+            width: 1280px; /* Largura desejada para a div principal */
+            height: 720px; /* Altura desejada para a div principal */
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .iframe-container iframe.widget {
+            width: 320px; /* Largura desejada para o widget */
+            height: 200px; /* Altura desejada para o widget */
+            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .iframe-container iframe.widget.second-widget {
+            left: auto; /* Adiciona o segundo widget do lado direito */
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <div class="iframe-container" id="fullscreen-container">
+        <!-- iFrame do Vídeo -->
+        <iframe name="Player" src="https://sinalpublico.com/player3/ch.php?canal=espn" frameborder="0" scrolling="no" allow="encrypted-media"></iframe>
+
+        <!-- iFrame do Primeiro Widget (posição absoluta sobre o vídeo) -->
+        <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
+
+        <!-- iFrame do Segundo Widget (posição absoluta sobre o vídeo) -->
+        <iframe class="widget second-widget" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
+
+        <!-- Botão de Fullscreen -->
+        <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
+
+    <script>
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else if (document.mozFullScreenElement) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            } else if (document.msFullscreenElement) {
+                document.msExitFullscreen();
+            } else {
+                if (fullscreenContainer.requestFullscreen) {
+                    fullscreenContainer.requestFullscreen();
+                } else if (fullscreenContainer.mozRequestFullScreen) {
+                    fullscreenContainer.mozRequestFullScreen();
+                } else if (fullscreenContainer.webkitRequestFullscreen) {
+                    fullscreenContainer.webkitRequestFullscreen();
+                } else if (fullscreenContainer.msRequestFullscreen) {
+                    fullscreenContainer.msRequestFullscreen();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+
+        .chat-container {
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            height: 700px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-box {
+            padding: 10px;
+            flex-grow: 1;
+            overflow-y: auto; /* Alterado para 'auto' */
+            border-bottom: 1px solid #ccc;
+        }
+
+        .message {
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            word-break: break-all; /* Adicionado para quebrar palavras longas */
+        }
+
+        .message:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .message:nth-child(odd) {
+            background-color: #e6e6e6;
+        }
+
+        .chat-input {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            max-width: 100%;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+    </style>
+    <title>Chat Box</title>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chat Box</h2>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Mensagens serão exibidas aqui -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="name-input" placeholder="Seu Nome" maxlength="100">
+            <input type="text" id="message-input" placeholder="Digite sua mensagem..." maxlength="100">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const nameInput = document.getElementById('name-input');
+        const messageInput = document.getElementById('message-input');
+
+        // Adiciona evento ao pressionar Enter no campo de mensagem
+        messageInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const userName = nameInput.value.trim();
+            const messageText = messageInput.value.trim();
+
+            if (userName && messageText) {
+                const message = document.createElement('div');
+                message.className = 'message';
+                message.textContent = `${userName}: ${messageText}`;
+                chatBox.appendChild(message);
+
+                // Armazena a mensagem localmente
+                const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+                storedMessages.push({ user: userName, text: messageText });
+
+                // Mantém apenas as últimas 10 mensagens
+                const lastTenMessages = storedMessages.slice(-20);
+                localStorage.setItem('chatMessages', JSON.stringify(lastTenMessages));
+
+                // Limpa o campo de mensagem após o envio
+                messageInput.value = '';
+
+                // Rola a caixa de bate-papo para baixo para exibir a última mensagem
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        // Exibe as últimas 10 mensagens armazenadas localmente
+        function displayStoredMessages() {
+            chatBox.innerHTML = ''; // Limpa a caixa de mensagens
+
+            const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+            storedMessages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                messageElement.textContent = `${message.user}: ${message.text}`;
+                chatBox.appendChild(messageElement);
+            });
+
+            // Rola a caixa de bate-papo para baixo para exibir a última mensagem
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Atualiza automaticamente as mensagens a cada 1 segundo
+        setInterval(displayStoredMessages, 1000);
+
+        // Chama a função para exibir mensagens armazenadas localmente ao carregar a página
+        displayStoredMessages();
+    </script>
+</body>
+</html>
