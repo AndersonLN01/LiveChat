@@ -83,20 +83,20 @@
 
         // Função para ajustar a proporção dos widgets
         function adjustWidgetProportion() {
-            const widget1AspectRatio = 800 / 400;  // Largura / Altura original do widget1
+            const widget1AspectRatio = 320 / 200;  // Largura / Altura original do widget1
             const widget2AspectRatio = 800 / 600;  // Largura / Altura original do widget2
 
             const containerWidth = fullscreenContainer.clientWidth;
             const containerHeight = fullscreenContainer.clientHeight;
 
             // Ajusta o tamanho do widget1 mantendo a proporção
-            const widget1Width = containerWidth * 0.4;  // Exemplo: 50% da largura da tela
+            const widget1Width = containerWidth * 0.5;  // Exemplo: 50% da largura da tela
             const widget1Height = widget1Width / widget1AspectRatio;
             widget1.style.width = `${widget1Width}px`;
             widget1.style.height = `${widget1Height}px`;
 
-            // Ajusta o tamanho do widget2 mantendo a proporção
-            const widget2Width = containerWidth * 0.1;  // Exemplo: 10% da largura da tela
+            // Ajusta o tamanho do widget2 mantendo a proporção original
+            const widget2Width = containerWidth * 0.15;  // Exemplo: 15% da largura da tela
             const widget2Height = widget2Width / widget2AspectRatio;
             widget2.style.width = `${widget2Width}px`;
             widget2.style.height = `${widget2Height}px`;
