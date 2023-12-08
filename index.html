@@ -3,89 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveChat</title>
+    <title>Widget LivePix</title>
+
     <style>
-        .iframe-container {
-            position: absolute;
-			top: 0;
-            left: 0;
-            width: 1280px; /* Largura desejada para a div principal */
-            height: 720px; /* Altura desejada para a div principal */
+        /* Estilos para a div contendo o iframe */
+        .widget-container {
+            max-width: 800px; /* Tamanho máximo original */
+            width: 30%; /* Tamanho inicial (ajuste conforme necessário) */
+            margin: 0 auto; /* Centraliza a div na página, opcional */
+            overflow: hidden;
         }
 
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Estilos para o iframe dentro da div */
+        .widget-container iframe {
             width: 100%;
             height: 100%;
-        }
-
-        .iframe-container iframe.widget {
-            width: 400px; /* Largura desejada para o widget */
-            height: 500px; /* Altura desejada para o widget */
-            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
-        }
-
-        .fullscreen-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .iframe-container iframe.widget.second-widget {
-            left: auto; /* Adiciona o segundo widget do lado direito */
-            right: 0;
+            border: 0; /* Remove a borda do iframe */
         }
     </style>
 </head>
 <body>
 
-    
-
-    <div class="iframe-container" id="fullscreen-container">
-        <!-- iFrame do Vídeo -->
-        <iframe name="Player" src="https://sinalpublico.com/player3/ch.php?canal=espn" frameborder="0" scrolling="no" allow="encrypted-media"></iframe>
-
-        <!-- iFrame do Primeiro Widget (posição absoluta sobre o vídeo) -->
-        <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
-
-        <!-- iFrame do Segundo Widget (posição absoluta sobre o vídeo) -->
-        <iframe class="widget second-widget" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
-
-        <!-- Botão de Fullscreen -->
-        <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
+    <!-- Div de contêiner que pode ser redimensionada manualmente -->
+    <div class="widget-container" id="widgetContainer">
+        <!-- Substitua a URL do iframe com o link fornecido pelo widget -->
+        <iframe src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" 
+                frameborder="0" scrolling="no" allowfullscreen>
+        </iframe>
     </div>
 
+    <!-- Script JavaScript para permitir redimensionamento manual -->
     <script>
-        const fullscreenContainer = document.getElementById('fullscreen-container');
+        var container = document.getElementById("widgetContainer");
+        var aspectRatio = 800 / 600; // Proporção original do widget (ajuste conforme necessário)
 
-        function toggleFullscreen() {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else if (document.mozFullScreenElement) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitFullscreenElement) {
-                document.webkitExitFullscreen();
-            } else if (document.msFullscreenElement) {
-                document.msExitFullscreen();
-            } else {
-                if (fullscreenContainer.requestFullscreen) {
-                    fullscreenContainer.requestFullscreen();
-                } else if (fullscreenContainer.mozRequestFullScreen) {
-                    fullscreenContainer.mozRequestFullScreen();
-                } else if (fullscreenContainer.webkitRequestFullscreen) {
-                    fullscreenContainer.webkitRequestFullscreen();
-                } else if (fullscreenContainer.msRequestFullscreen) {
-                    fullscreenContainer.msRequestFullscreen();
-                }
+        // Adiciona um ouvinte de evento para ajustar a largura da div quando a janela for redimensionada
+        window.addEventListener("resize", function () {
+            ajustarProporcoes();
+        });
+
+        // Função para ajustar as proporções da div de contêiner
+        function ajustarProporcoes() {
+            var novaLargura = container.offsetHeight * aspectRatio;
+
+            // Garante que a nova largura não ultrapasse o tamanho máximo original
+            if (novaLargura <= 800) {
+                container.style.width = novaLargura + "px";
             }
         }
+
+        // Chama a função de ajustarProporcoes() quando a página carrega
+        ajustarProporcoes();
     </script>
 
 </body>
 </html>
-
-
-
