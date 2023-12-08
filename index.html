@@ -3,43 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embed Links</title>
+    <title>Sua Página com iFrames</title>
     <style>
         .iframe-container {
             position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            margin-bottom: 20px;
+            width: 1280px; /* Largura desejada para a div principal */
+            height: 720px; /* Altura desejada para a div principal */
         }
 
-        iframe {
+        .iframe-container iframe {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .iframe-container iframe.widget {
+            width: 320px; /* Largura desejada para o widget */
+            height: 200px; /* Altura desejada para o widget */
+            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            bottom: 10px;a
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .iframe-container iframe.widget.second-widget {
+            left: auto; /* Adiciona o segundo widget do lado direito */
+            right: 0;
         }
     </style>
 </head>
 <body>
 
-<div class="iframe-container">
-    <iframe id="iframe1" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0" allowfullscreen></iframe>
-</div>
+    <h1>Sua Página com iFrames</h1>
 
-<div class="iframe-container">
-    <iframe id="iframe2" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0" allowfullscreen></iframe>
-</div>
+    <div class="iframe-container" id="fullscreen-container">
+        <!-- iFrame do Vídeo -->
+        <iframe name="Player" src="https://www.youtube.com/embed/Zu2z5M4gmno" frameborder="0" scrolling="no" allow="encrypted-media"></iframe>
 
-<script>
-    function resizeIframe(iframeId, newWidth) {
-        var iframe = document.getElementById(iframeId);
-        iframe.style.width = newWidth + 'px';
-        iframe.style.height = (newWidth / 16) * 9 + 'px'; // Assuming 16:9 aspect ratio
-    }
+        <!-- iFrame do Primeiro Widget (posição absoluta sobre o vídeo) -->
+        <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
 
-    // Exemplos de como chamar a função para redimensionar cada iframe
-    resizeIframe('iframe1', 500); // Redimensiona o iframe1 para 300 pixels de largura
-    resizeIframe('iframe2', 250); // Redimensiona o iframe2 para 400 pixels de largura
-</script>
+        <!-- iFrame do Segundo Widget (posição absoluta sobre o vídeo) -->
+        <iframe class="widget second-widget" src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
+
+        <!-- Botão de Fullscreen -->
+        <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
+
+    <script>
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else if (document.mozFullScreenElement) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            } else if (document.msFullscreenElement) {
+                document.msExitFullscreen();
+            } else {
+                if (fullscreenContainer.requestFullscreen) {
+                    fullscreenContainer.requestFullscreen();
+                } else if (fullscreenContainer.mozRequestFullScreen) {
+                    fullscreenContainer.mozRequestFullScreen();
+                } else if (fullscreenContainer.webkitRequestFullscreen) {
+                    fullscreenContainer.webkitRequestFullscreen();
+                } else if (fullscreenContainer.msRequestFullscreen) {
+                    fullscreenContainer.msRequestFullscreen();
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
