@@ -22,8 +22,10 @@
         }
 
         .iframe-container iframe.widget {
-            width: 30%; /* Altere a largura desejada para o widget em porcentagem */
-        height: 40%; /* Altere a altura desejada para o widget em porcentagem */
+           width: auto; /* Define a largura automática para manter a proporção original */
+        height: 40vh; /* Altere a altura desejada para o widget em porcentagem da altura da viewport (vh) */
+        max-width: 100%; /* Garante que a largura não ultrapasse 100% da largura da viewport */
+        max-height: 100%; /* Garante que a altura não ultrapasse 100% da altura da viewport */
         z-index: 1;
         }
 
@@ -35,8 +37,10 @@
         }
 
         .iframe-container iframe.widget.second-widget {
-		    width: 17%; /* Altere a largura desejada para o segundo widget em porcentagem */
-        height: 20%; /* Altere a altura desejada para o segundo widget em porcentagem */
+		    width: auto; /* Define a largura automática para manter a proporção original */
+        height: 10vh; /* Altere a altura desejada para o segundo widget em porcentagem da altura da viewport (vh) */
+        max-width: 100%; /* Garante que a largura não ultrapasse 100% da largura da viewport */
+        max-height: 100%; /* Garante que a altura não ultrapasse 100% da altura da viewport */
         left: auto;
         right: 0;
         }
