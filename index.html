@@ -22,11 +22,9 @@
         }
 
         .iframe-container iframe.widget {
-           width: auto; /* Define a largura automática para manter a proporção original */
-        height: 30vh; /* Altere a altura desejada para o widget em porcentagem da altura da viewport (vh) */
-        max-width: 100%; /* Garante que a largura não ultrapasse 100% da largura da viewport */
-        max-height: 100%; /* Garante que a altura não ultrapasse 100% da altura da viewport */
-        z-index: 1;
+            width: 400px; /* Largura desejada para o widget */
+            height: 300px; /* Altura desejada para o widget */
+            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
         }
 
         .fullscreen-button {
@@ -37,12 +35,8 @@
         }
 
         .iframe-container iframe.widget.second-widget {
-		     width: auto; /* Define a largura automática para manter a proporção original */
-        height: 10vh; /* Altere a altura desejada para o segundo widget em porcentagem da altura da viewport (vh) */
-        max-width: 100%; /* Garante que a largura não ultrapasse 100% da largura da viewport */
-        max-height: 100%; /* Garante que a altura não ultrapasse 100% da altura da viewport */
-        left: auto;
-        right: 0;
+            left: auto; /* Adiciona o segundo widget do lado direito */
+            right: 0;
         }
     </style>
 </head>
