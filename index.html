@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sua Página com iFrames</title>
+    <title>LiveChat</title>
     <style>
         .iframe-container {
             position: absolute;
@@ -22,19 +22,21 @@
         }
 
         .iframe-container iframe.widget {
-            width: 800px; /* Largura desejada para o widget */
-            height: 400px; /* Altura desejada para o widget */
+            width: 400px; /* Largura desejada para o widget */
+            height: 300px; /* Altura desejada para o widget */
             z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
         }
 
         .fullscreen-button {
             position: absolute;
-            bottom: 60px;
+            bottom: 10px;
             right: 10px;
             cursor: pointer;
         }
 
         .iframe-container iframe.widget.second-widget {
+		    width: 220px; /* Largura desejada para o widget */
+            height: 180px; /* Altura desejada para o widget */
             left: auto; /* Adiciona o segundo widget do lado direito */
             right: 0;
         }
