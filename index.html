@@ -61,19 +61,24 @@
         // Recuperar mensagens antigas do armazenamento local
         var storedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
 
-        // Exibir mensagens antigas
-        storedMessages.forEach(function(message) {
-            appendMessage(message);
-        });
+        // Exibir as últimas 20 mensagens
+        function displayLast20Messages() {
+            chatWindow.innerHTML = ""; // Limpar a janela de chat
+
+            var start = Math.max(0, storedMessages.length - 20); // Começar a exibir as mensagens a partir da 20ª mensagem mais recente
+            for (var i = start; i < storedMessages.length; i++) {
+                appendMessage(storedMessages[i]);
+            }
+
+            // Rolar automaticamente para a última mensagem
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
 
         function appendMessage(message) {
             var messageElement = document.createElement("p");
             messageElement.className = "user-message";
             messageElement.innerHTML = "<strong>" + message.user + ":</strong> " + message.text;
             chatWindow.appendChild(messageElement);
-
-            // Rolar automaticamente para a última mensagem
-            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function sendMessage() {
@@ -88,10 +93,16 @@
 
                 // Armazenar a nova mensagem junto com as antigas
                 storedMessages.push(message);
+
+                // Limitar o número de mensagens armazenadas para 20
+                if (storedMessages.length > 20) {
+                    storedMessages.shift(); // Remover a mensagem mais antiga
+                }
+
                 localStorage.setItem("chatMessages", JSON.stringify(storedMessages));
 
-                // Exibir a nova mensagem
-                appendMessage(message);
+                // Exibir as últimas 20 mensagens
+                displayLast20Messages();
 
                 // Limpar o campo de mensagem após o envio
                 messageInput.value = "";
@@ -103,6 +114,9 @@
                 sendMessage();
             }
         }
+
+        // Exibir as últimas 20 mensagens ao carregar a página
+        displayLast20Messages();
     </script>
 </body>
 </html>
