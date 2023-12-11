@@ -55,33 +55,46 @@
     </div>
 
     <script>
-        // Recuperar o nome do armazenamento local, se existir
-        var storedName = localStorage.getItem("chatUserName");
+        var chatWindow = document.getElementById("chat-window");
         var nameInput = document.getElementById("name-input");
-        if (storedName) {
-            nameInput.value = storedName;
+
+        // Recuperar mensagens antigas do armazenamento local
+        var storedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+
+        // Exibir mensagens antigas
+        storedMessages.forEach(function(message) {
+            appendMessage(message);
+        });
+
+        function appendMessage(message) {
+            var messageElement = document.createElement("p");
+            messageElement.className = "user-message";
+            messageElement.innerHTML = "<strong>" + message.user + ":</strong> " + message.text;
+            chatWindow.appendChild(messageElement);
+
+            // Rolar automaticamente para a última mensagem
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function sendMessage() {
-            var messageInput = document.getElementById("message-input");
-            var chatWindow = document.getElementById("chat-window");
-
             var userName = nameInput.value;
+            var messageInput = document.getElementById("message-input");
 
             if (userName !== "" && messageInput.value !== "") {
-                var message = document.createElement("p");
-                message.className = "user-message";
-                message.innerHTML = "<strong>" + userName + ":</strong> " + messageInput.value;
-                chatWindow.appendChild(message);
+                var message = {
+                    user: userName,
+                    text: messageInput.value
+                };
 
-                // Armazenar o nome no armazenamento local
-                localStorage.setItem("chatUserName", userName);
+                // Armazenar a nova mensagem junto com as antigas
+                storedMessages.push(message);
+                localStorage.setItem("chatMessages", JSON.stringify(storedMessages));
+
+                // Exibir a nova mensagem
+                appendMessage(message);
 
                 // Limpar o campo de mensagem após o envio
                 messageInput.value = "";
-
-                // Rolar automaticamente para a última mensagem
-                chatWindow.scrollTop = chatWindow.scrollHeight;
             }
         }
 
