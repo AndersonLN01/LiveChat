@@ -1,100 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveChat</title>
-    <style>
-        .iframe-container {
-            position: absolute;
-			top: 0;
-            left: 0;
-            width: 1280px; /* Largura desejada para a div principal */
-            height: 720px; /* Altura desejada para a div principal */
-        }
+<script src="https://bard.ai/api/stream/?key=YOUR_API_KEY"></script>
 
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+<div id="data"></div>
 
-        .iframe-container iframe.widget {
-            width: 400px; /* Largura desejada para o widget */
-            height: 400px; /* Altura desejada para o widget */
-            z-index: 1; /* Coloca o widget acima do vídeo (z-index maior) */
-        }
+<script>
 
-          .fullscreen-button {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        cursor: pointer;
-        padding: 10px;
-        background-color: green; /* Cor de fundo do botão */
-        color: #ffffff; /* Cor do texto do botão */
-        border: none;
-        border-radius: 5px; /* Bordas arredondadas */
-        font-size: 16px;
-    }
+// Função para receber dados de Bard
+function receiveData(data) {
 
-    .fullscreen-button:hover {
-        background-color: #2980b9; /* Cor de fundo do botão ao passar o mouse */
-    }
-        .iframe-container iframe.widget.second-widget {
-            left: auto; /* Adiciona o segundo widget do lado direito */
-            right: 0;
-			height: 350px;
-			width: 250px;
-			
-        }
-    </style>
-</head>
-<body>
+  // Atualiza o elemento DOM com os dados recebidos
+  document.querySelector("#data").innerHTML = data;
+}
 
-    
+// Inicia o streaming de dados de Bard
+window.addEventListener("load", function() {
+  Bard.stream("YOUR_API_KEY", receiveData);
+});
 
-    <div class="iframe-container" id="fullscreen-container">
-        <!-- iFrame do Vídeo -->
-        <iframe name="Player" src="https://sinalpublico.com/player3/ch.php?canal=hboplus" frameborder="0" scrolling="no" allow="encrypted-media"></iframe>
-
-        <!-- iFrame do Primeiro Widget (posição absoluta sobre o vídeo) -->
-        <iframe class="widget" src="https://widget.livepix.gg/embed/6e34d21b-eb1f-41a3-93d2-c92be4e3a323" frameborder="0"></iframe>
-
-        <!-- iFrame do Segundo Widget (posição absoluta sobre o vídeo) -->
-        <iframe class="widget second-widget"   src="https://widget.livepix.gg/embed/4e731087-eaf9-4571-b138-02033a9de6d8" frameborder="0"></iframe>
-
-        <!-- Botão de Fullscreen -->
-        <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
-    </div>
-
-    <script>
-        const fullscreenContainer = document.getElementById('fullscreen-container');
-
-        function toggleFullscreen() {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else if (document.mozFullScreenElement) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitFullscreenElement) {
-                document.webkitExitFullscreen();
-            } else if (document.msFullscreenElement) {
-                document.msExitFullscreen();
-            } else {
-                if (fullscreenContainer.requestFullscreen) {
-                    fullscreenContainer.requestFullscreen();
-                } else if (fullscreenContainer.mozRequestFullScreen) {
-                    fullscreenContainer.mozRequestFullScreen();
-                } else if (fullscreenContainer.webkitRequestFullscreen) {
-                    fullscreenContainer.webkitRequestFullscreen();
-                } else if (fullscreenContainer.msRequestFullscreen) {
-                    fullscreenContainer.msRequestFullscreen();
-                }
-            }
-        }
-    </script>
+</script>
 
 </body>
 </html>
