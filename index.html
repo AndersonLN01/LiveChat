@@ -1,26 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-<script src="https://bard.ai/api/stream/?key=YOUR_API_KEY"></script>
+  <title>Chat ao vivo</title>
+</head>
+<body>
+  <div id="chat">
+    <ul id="mensagens"></ul>
+    <input type="text" id="mensagem" placeholder="Digite sua mensagem">
+    <button id="enviar">Enviar</button>
+  </div>
 
-<div id="data"></div>
+  <script>
+    const mensagens = [];
 
-<script>
+    const atualizarMensagens = () => {
+      const ul = document.getElementById("mensagens");
+      ul.innerHTML = "";
 
-// Função para receber dados de Bard
-function receiveData(data) {
+      for (let i = mensagens.length - 1; i >= 0; i--) {
+        const mensagem = mensagens[i];
 
-  // Atualiza o elemento DOM com os dados recebidos
-  document.querySelector("#data").innerHTML = data;
-}
+        const li = document.createElement("li");
+        li.textContent = `${mensagem.autor}: ${mensagem.texto}`;
+        ul.appendChild(li);
+      }
+    };
 
-// Inicia o streaming de dados de Bard
-window.addEventListener("load", function() {
-  Bard.stream("YOUR_API_KEY", receiveData);
-});
+    const enviarMensagem = () => {
+      const mensagem = document.getElementById("mensagem").value;
+      const dataHora = new Date();
 
-</script>
+      mensagens.push({
+        id: mensagens.length,
+        autor: "Anônimo",
+        texto: mensagem,
+        dataHora: dataHora
+      });
 
+      const li = document.createElement("li");
+      li.textContent = `${mensagem} - ${dataHora}`;
+      ul.appendChild(li);
+
+      document.getElementById("mensagem").value = "";
+    };
+
+    document.addEventListener("DOMContentLoaded", atualizarMensagens);
+    document.getElementById("enviar").addEventListener("click", enviarMensagem);
+
+    // CSS
+    const style = document.createElement("style");
+    style.textContent = `
+      body {
+        font-family: sans-serif;
+      }
+
+      #chat {
+        width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+
+      #mensagens {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #mensagens li {
+        margin-bottom: 10px;
+      }
+
+      #mensagem {
+        width: 100%;
+        height: 20px;
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+
+      #enviar {
+        background-color: #000;
+        color: #fff;
+        cursor: pointer;
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
-
